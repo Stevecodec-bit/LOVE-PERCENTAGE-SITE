@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LOVE PERCENTAGE</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: pink;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Romeo_and_juliet_brown.jpg/1024px-Romeo_and_juliet_brown.jpg');
+      background-size: cover;
+      background-position: center;
+      transition: filter 1s ease;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(0px);
+      transition: backdrop-filter 1s ease;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      padding: 50px;
+      text-align: center;
+      color: white;
+      background-color: rgba(255, 192, 203, 0.6);
+      max-width: 500px;
+      margin: 100px auto;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+      font-size: 1em;
+      border-radius: 10px;
+      border: none;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1.2em;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: deeppink;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: hotpink;
+    }
+
+    #result {
+      font-size: 2em;
+      margin-top: 30px;
+      background: white;
+      color: red;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+      display: inline-block;
+      max-width: 90%;
+    }
+
+    #romantic-text {
+      font-size: 1.2em;
+      margin-top: 20px;
+      background: white;
+      color: deeppink;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+    }
+
+    .rotating {
+      font-size: 3em;
+      margin-top: 30px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="container">
+    <h1>LOVE PERCENTAGE</h1>
+    <input type="text" id="maleName" placeholder="Male Name"><br>
+    <input type="text" id="femaleName" placeholder="Female Name"><br>
+    <button onclick="runTest()">Run Test</button>
+
+    <div id="animation" class="rotating" style="display:none;">0%</div>
+    <div id="result"></div>
+    <div id="romantic-text"></div>
+  </div>
+
+  <script>
+    let testCounter = 0;
+    const fixedResults = [99, 99, 99, 99, 99];
+    const otherResults = [77, 88, 20, 32, 45, 54, 54, 67, 67, 78, 98];
+    const romanticSpeeches = [
+      "Your hearts beat as one. This is a bond written in the stars.",
+      "Together, you make the universe blush.",
+      "Your love is like a timeless sonnet—endlessly beautiful.",
+      "Even the stars envy the connection you share.",
+      "What you feel is rare. Hold onto it like a treasure."
+    ];
+
+    function runTest() {
+      const male = document.getElementById('maleName').value.trim();
+      const female = document.getElementById('femaleName').value.trim();
+      const overlay = document.getElementById('overlay');
+      const animation = document.getElementById('animation');
+      const result = document.getElementById('result');
+      const romanticText = document.getElementById('romantic-text');
+
+      if (!male || !female) {
+        alert("Please enter both names.");
+        return;
+      }
+
+      // Blur background
+      overlay.style.backdropFilter = 'blur(8px)';
+
+      result.innerHTML = '';
+      romanticText.innerHTML = '';
+      animation.style.display = 'block';
+
+      let percent = 0;
+      let rotation = setInterval(() => {
+        percent = (percent + 7) % 101;
+        animation.textContent = percent + '%';
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(rotation);
+        animation.style.display = 'none';
+        overlay.style.backdropFilter = 'blur(0px)';
+
+        let finalPercent;
+        if (testCounter < 5) {
+          finalPercent = fixedResults[testCounter];
+        } else {
+          finalPercent = otherResults[(testCounter - 5) % otherResults.length];
+        }
+        testCounter++;
+
+        result.innerHTML = `Love Score: ${finalPercent}%`;
+
+        if (finalPercent >= 70) {
+          let speech = romanticSpeeches[Math.floor(Math.random() * romanticSpeeches.length)];
+          romanticText.innerHTML = `"${speech}"`;
+        }
+
+      }, 10000); // 10 seconds
+    }
+  </script>
+</body>
+</html>
