@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>LOVE PERCENTAGE</title>
   <style>
-    body {
+body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -82,7 +83,7 @@
     }
 
     #romantic-text {
-      font-size: 1.2em;
+      font-size: 1.6em;
       margin-top: 20px;
       background: white;
       color: deeppink;
@@ -96,7 +97,7 @@
     }
 
     .rotating {
-      font-size: 3em;
+      font-size: 30em;
       margin-top: 30px;
       animation: spin 1s linear infinite;
     }
@@ -108,79 +109,410 @@
   </style>
 </head>
 <body>
-  <div class="overlay" id="overlay"></div>
-
+<div class="overlay" id="overlay"></div>
   <div class="container">
     <h1>LOVE PERCENTAGE</h1>
     <input type="text" id="maleName" placeholder="Male Name"><br>
     <input type="text" id="femaleName" placeholder="Female Name"><br>
     <button onclick="runTest()">Run Test</button>
-
-    <div id="animation" class="rotating" style="display:none;">0%</div>
+    <div id="animation">0%</div>
     <div id="result"></div>
     <div id="romantic-text"></div>
   </div>
 
   <script>
-    let testCounter = 0;
-    const fixedResults = [99, 99, 99, 99, 99];
-    const otherResults = [77, 88, 20, 32, 45, 54, 54, 67, 67, 78, 98];
     const romanticSpeeches = [
-      "Your hearts beat as one. This is a bond written in the stars.",
-      "Together, you make the universe blush.",
-      "Your love is like a timeless sonnet—endlessly beautiful.",
-      "Even the stars envy the connection you share.",
-      "What you feel is rare. Hold onto it like a treasure."
+"The love you share is priceless, the kind poets dream about,",
+"The sun envies the warmth between you two,",
+"Your love is the full definition of perfection,",
+"Every glance between you is a silent poem,",
+"The bond you share glows brighter than starlight,",
+"Your relationship radiates peace and strength,",
+"Love like yours turns time into timelessness,",
+"The harmony between you is pure magic,",
+"Your connection is rare—unshakable and serene,",
+"Together, you redefine what true love means,",
+"Your love story deserves to be written in the stars,",
+"The comfort you bring each other is beyond beautiful,",
+"Your love is steady, soft, and deeply inspiring,",
+"Every moment you share is a masterpiece of affection,",
+"Your relationship feels like a breath of fresh air,",
+"Together, you shine in the gentlest way possible,",
+"Your love is the calm in a chaotic world,",
+"The way you understand each other is breathtaking,",
+"The loyalty between you speaks louder than words,",
+"You two are a perfect example of real romance,",
+"Your bond is quiet strength and loud joy all at once,",
+"Even silence between you feels full of love,",
+"You make loving look effortless and elegant,",
+"Every gesture between you speaks of deep connection,",
+"The peace your relationship radiates is rare and radiant,",
+"Your love feels like it was written before time,",
+"Every smile you share lights up the space around you,",
+"Together, you create an atmosphere of pure love,",
+"Your relationship feels like the world finally got it right,",
+"The love between you is tender and timeless,",
+"Every touch you share carries trust and care,",
+"Your bond is gentle, fierce, and endlessly beautiful,",
+"The depth of your connection is simply divine,",
+"Love, in your case, is an everyday miracle,",
+"You are a living definition of romantic harmony,",
+"Your affection flows like a river—quiet and unending,",
+"The way you love brings hope to those around you,",
+"Together, you are proof that soulmates exist,",
+"The love between you is poetry in motion,",
+"Even the stars would pause to watch your love,",
+"Your relationship hums with peace and purpose,",
+"Every day you love is a lesson in loyalty,",
+"You show the world what love truly looks like,",
+"Your union is a sacred blend of hearts and hopes,",
+"Love like yours turns ordinary life into legend,",
+"The trust between you could move mountains,",
+"Your relationship is a rare and radiant treasure,",
+"You two love with a grace that never fades,",
+"Your story is what forever should feel like,",
+"Your love speaks louder than any words ever could,",
+"The connection you share is pure, profound, and powerful,",
+"Together, you radiate the kind of love that heals,",
+"Your bond is what fairy tales wish they could capture,",
+"Even time pauses to admire the love between you,",
+"You love with the kind of quiet strength that never breaks,",
+"Your relationship is an endless echo of devotion,",
+"Every shared glance reveals a thousand unspoken promises,",
+"Your love is art—painted with patience, grace, and joy,",
+"The way you hold each other is how safety feels,",
+"Your story is living proof that love endures,",
+"You two are love's favorite example,",
+"Each day you love is a reminder of what matters most,",
+"The world softens when you’re together,",
+"Your connection is laced with light and loyalty,",
+"The way you care for each other is breathtaking,",
+"Together, you make romance feel real and reachable,",
+"Your relationship carries the grace of something sacred,",
+"The bond between you is rare and radiant,",
+"You make commitment look like the grandest adventure,",
+"Your love hums with peace and passion alike,",
+"The way you show up for each other is everything,",
+"Love looks its best when it's reflected in you,",
+"Your affection is a quiet melody that touches all who see it,",
+"The relationship you’ve built is a masterpiece of trust,",
+"Your love is both storm and shelter—wild yet safe,",
+"Being around your love feels like standing in sunshine,",
+"The loyalty you share is written in your every move,",
+"Your togetherness glows even in the darkest hours,",
+"You are each other’s constant in a world of change,",
+"Your connection is the kind that needs no explanation,",
+"Your love is the kind that makes hearts believe again,",
+"Even silence becomes sacred when it’s shared by you two,",
+"The joy between you is quietly overwhelming,",
+"You two have made love a living, breathing thing,",
+"The trust you hold is the foundation of something timeless,",
+"Your love feels effortless because it’s rooted in truth,",
+"Together, you make the impossible feel possible,",
+"Your bond is woven with care and everlasting kindness,",
+"Love has never looked more peaceful than it does in you,",
+"You embody everything love is meant to be,",
+"The beauty of your relationship rests in its sincerity,",
+"Your devotion to each other is both fierce and tender,",
+"Your love has depth, grace, and an unspoken power,",
+"You bring out the light in each other,",
+"Your hearts speak a language only true love understands,",
+"Every part of your relationship feels intentional and real,",
+"Your love story is a beacon to anyone who witnesses it,",
+"You are the embodiment of harmony and heart,",
+"Together, you are a reflection of enduring love,",
+"Your love is the kind that never asks for attention yet commands it,",
+"Every part of your relationship whispers peace and power,",
+"The beauty you create together is simply unforgettable,",
+"Your connection feels written in the stars and rooted in the earth,",
+"You two are the calm in each other’s chaos,",
+"Love like yours needs no explanation—it simply shines,",
+"Your loyalty to each other is quiet, consistent, and rare,",
+"You bring balance and beauty to everything around you,",
+"Together, your hearts create a world of your own,",
+"Your love is the gentlest force with the strongest hold,",
+"You two turn commitment into something breathtaking,",
+"Even storms seem to soften around your love,",
+"Your relationship flows like music—unforced and moving,",
+"You are love in its most genuine and grounded form,",
+"The joy you share is contagious and comforting,",
+"Your love is made of the moments most people overlook,",
+"There’s poetry in the way you care for each other,",
+"Your bond is a sanctuary from the noise of the world,",
+"Every part of your story speaks of depth and devotion,",
+"You are each other’s greatest peace and greatest gift,",
+"The energy between you is soft, strong, and sacred,",
+"You make forever look possible, and even easy,",
+"Your affection glows like candlelight—gentle and unwavering,",
+"Together, you turn little things into lasting treasures,",
+"Your love speaks in steady rhythms and true notes,",
+"You are living proof that love can be both tender and tough,",
+"The kindness in your love leaves a mark on everyone who sees it,",
+"You two are the quiet kind of love that roars with meaning,",
+"Even in stillness, your relationship is alive with care,",
+"Your love isn’t loud, but it echoes in every heart nearby,",
+"You’ve turned connection into an art form,",
+"Every moment you share reflects something rare and radiant,",
+"Your hearts move together like they’ve always known how,",
+"Your relationship feels like sunlight filtered through leaves—warm and calm,",
+"You carry each other so gently and so surely,",
+"The world feels softer when you’re together,",
+"Your relationship is a shelter built on trust and time,",
+"Even from afar, your love feels close and comforting,",
+"The way you protect each other is beautiful and bold,",
+"You make loyalty look like the most romantic thing of all,",
+"Your love grows with grace, never in haste,",
+"You show that true love doesn’t need to shout—it simply shows up,",
+"Your bond is stitched with patience and profound care,",
+"You two have created something rare: love that lasts and lifts,",
+"Every glance you share is filled with shared history and hope,",
+"You love with intention, attention, and unwavering presence,",
+"Your connection is smooth like calm waters—deep and dependable,",
+"You’ve turned being together into a life worth celebrating,",
+"Your relationship reflects what love truly hopes to become,",
     ];
 
-    function runTest() {
-      const male = document.getElementById('maleName').value.trim();
-      const female = document.getElementById('femaleName').value.trim();
-      const overlay = document.getElementById('overlay');
-      const animation = document.getElementById('animation');
-      const result = document.getElementById('result');
-      const romanticText = document.getElementById('romantic-text');
+    const comfortingSpeeches = [
+      "Your love is the safe place where hearts can rest,",
+"The way you comfort each other is a beautiful form of strength,",
+"Together, you’ve built a love that softens life’s hardest days,",
+"Your presence brings peace that words could never offer,",
+"In each other, you’ve found the calm inside every storm,",
+"The love you share is a steady light in uncertain times,",
+"Your relationship offers warmth that the world can feel,",
+"The quiet way you love each other is your loudest comfort,",
+"Your support for one another is constant, calming, and complete,",
+"The way you hold space for each other is rare and remarkable,",
+"You love with a patience that heals and holds,",
+"Your connection soothes the soul and steadies the heart,",
+"In your love, there’s a safety that can’t be shaken,",
+"The peace you provide one another is a quiet miracle,",
+"Even in silence, your love speaks reassurance and hope,",
+"Your love feels like a soft place to land,",
+"The comfort in your togetherness could calm a storm,",
+"With each other, even the heavy moments feel lighter,",
+"Your love wraps around each other like a blanket on a cold day,",
+"The care you share is steady, soothing, and soul-deep,",
+"You’ve made love into a resting place for weary hearts,",
+"Even your stillness together is filled with comfort and care,",
+"The way you love provides peace no words can explain,",
+"Your connection brings clarity and calmness to life’s chaos,",
+"You soothe each other simply by being present,",
+"Your love is the gentle anchor that keeps each other steady,",
+"In your arms, comfort becomes more than a feeling—it becomes a truth,",
+"You’ve built something that offers relief, reassurance, and renewal,",
+"The peace you share is soft, sincere, and sacred,",
+"You are each other’s pause in a fast world,",
+"Your love brings shelter without asking, only giving,",
+"Together, you’ve created a healing space in a hurting world,",
+"You are proof that love can restore what life has worn down,",
+"Even in the messiness of life, your love remains beautifully composed,",
+"The steadiness in your love quiets every fear,",
+"You show that love doesn’t have to be loud to be powerful,",
+"Your presence in each other’s lives is pure comfort,",
+"The way you love makes hard days easier and good days brighter,",
+"Your bond is made of quiet reassurances and deep trust,",
+"Together, you create a sense of home that words can’t capture,",
+"Your love gives rest to hearts that have wandered too long,",
+"The gentleness in your relationship is a strength all its own,",
+"Even through life’s noise, your love is a silent peace,",
+"You carry each other with such care and calm,",
+"Your love whispers ‘you’re safe here’ in every interaction,",
+"In each other, you’ve found your favorite kind of peace,",
+"The stillness you share is the most soothing kind of presence,",
+"Your love is like a gentle tide—always returning, always reliable,",
+"Together, you bring comfort just by being near,",
+"Your relationship is the quiet hope we all long for,",
+"Your love feels like a quiet evening wrapped in warmth,",
+"You bring peace into each other’s lives just by being present,",
+"The strength of your love is in its calm consistency,",
+"Even on the hardest days, your love remains a soft landing,",
+"Together, you offer each other peace the world can’t touch,",
+"Your relationship feels like a deep breath after a long day,",
+"The comfort you bring to each other is the heart of your love,",
+"You turn ordinary days into safe havens for the soul,",
+"Your love is a gentle reminder that everything will be okay,",
+"The way you show up for each other brings quiet healing,",
+"In your presence, storms lose their power,",
+"You make the world feel less heavy just by being together,",
+"Your love is a sanctuary from everything loud and uncertain,",
+"The calm you bring to each other is a form of grace,",
+"Your bond is strong because it’s rooted in gentle care,",
+"Even without words, your love reassures and restores,",
+"You give each other peace no one else can provide,",
+"The softness of your love is a soothing kind of strength,",
+"Your love speaks the language of comfort fluently,",
+"Together, you are each other’s sense of home,",
+"Your relationship is like a warm cup of tea on a cold morning,",
+"Your connection provides a steady heartbeat in chaotic times,",
+"You’ve created a love that invites exhale and ease,",
+"The tenderness between you is a quiet kind of bravery,",
+"Your love doesn’t demand—it understands,",
+"Every moment together feels like emotional shelter,",
+"You offer each other the kind of support that can’t be taught,",
+"Your love is steady in its presence and soothing in its silence,",
+"The care you give each other is love in its purest form,",
+"Together, you’ve mastered the art of comforting just by existing,",
+"Your relationship is built on a rhythm of peace and presence,",
+"You bring a stillness to each other that feels like healing,",
+"Your bond holds space for joy and pain with equal compassion,",
+"In each other, you’ve found a place where it’s safe to be real,",
+"You love in a way that whispers, ‘You’re not alone,’",
+"The way you comfort each other is a silent act of devotion,",
+"Even your quiet moments together are filled with connection,",
+"Your relationship is a soft light in a dim world,",
+"You give each other rest in the truest sense of the word,",
+"You two are proof that comfort is a form of love,",
+"Your love is a place where both hearts can finally breathe,",
+"The care you extend to each other is quiet, sacred work,",
+"Together, you’ve created peace that feels like a promise kept,",
+"Your love brings stillness to even the most restless hearts,",
+"The way you love turns uncertainty into reassurance,",
+"Your bond brings balance in a world that never stops moving,",
+"Every embrace you share is a retreat from the noise of life,",
+"Your love gently reminds each other: you’re enough,",
+"In one another, you’ve found your soul’s softest landing,",
+"Your love is a quiet corner in a loud world,",
+"You bring each other the kind of peace that lasts,",
+"In the warmth of your bond, everything feels manageable,",
+"Your love doesn’t rush—it rests, it listens, it stays,",
+"Together, you’ve made love into a gentle refuge,",
+"You comfort each other in ways that words never could,",
+"Your connection is calm in a world that demands chaos,",
+"The soft way you love each other is your greatest strength,",
+"You make each other feel safe enough to be fully human,",
+"In your presence, the world feels softer and more bearable,",
+"Your love holds space for both laughter and tears,",
+"You remind each other that no one has to go through life alone,",
+"Your relationship is a quiet miracle unfolding every day,",
+"Your bond turns vulnerability into power,",
+"You offer each other rest when the world offers resistance,",
+"The way you love is a lesson in patience and presence,",
+"You love in a way that feels like coming home,",
+"You two bring peace into every space you enter,",
+"The silence between you speaks volumes of trust and understanding,",
+"You love with a steadiness that melts anxiety and fear,",
+"Your relationship is proof that love can be both soft and strong,",
+"Even your quietest moments together are full of care,",
+"You are each other’s safe harbor in every storm,",
+"Your love wraps around each other like a promise kept,",
+"You’ve made a haven out of each other’s hearts,",
+"Together, you’ve created a shelter built from affection and trust,",
+"Your bond is calm, collected, and beautifully human,",
+"The safety you offer one another is something sacred,",
+"You hold each other like the world can’t touch you,",
+"Your love makes space for all emotions without judgment,",
+"The way you’re there for each other brings comfort to everyone watching,",
+"Your love is a soft landing after life’s hardest falls,",
+"In your relationship, peace isn't just a feeling—it’s a fact,",
+"You give each other the kind of love that steadies the soul,",
+"Your connection is the very definition of emotional safety,",
+"The quiet strength of your love makes everything feel okay,",
+"You show that comfort isn’t just in words—it’s in presence,",
+"Your relationship brings serenity to an unpredictable world,",
+"You two love with such calm assurance—it’s a gift to witness,",
+"Together, you’ve created a love that soothes the ache of life,",
+"Your love makes space for mistakes, growth, and healing,",
+"You offer each other grace when the world offers pressure,",
+"The way you love restores what’s been worn thin by the world,",
+"In your togetherness, peace feels possible,",
+"You hold each other with unmatched tenderness and understanding,",
+"You two have made love feel like safety itself,",
+"Your presence in each other’s lives is the most comforting constant,",
+"You’ve turned love into a daily act of gentle support,",
+"Your relationship is the softest place to land,",
+"You love each other like it’s the most natural thing in the world,",
+    ];
 
-      if (!male || !female) {
-        alert("Please enter both names.");
-        return;
+    const stephenPatienceSpeeches = [
+      "Your love is poetry in motion, destined and divine.",
+      "Stephen and Patience — a bond even time bows to.",
+      "You are the perfect harmony in the symphony of love.",
+      "A match made not just in heaven, but sealed in eternity.",
+      "Stephen & Patience: the kind of love people dream of.",
+"The harmony between you is pure magic,",
+"Your connection is rare—unshakable and serene,",
+"Together, you redefine what true love means,",
+"Your love story deserves to be written in the stars,",
+"The comfort you bring each other is beyond beautiful,",
+"Your love is steady, soft, and deeply inspiring,",
+"Every moment you share is a masterpiece of affection,",
+"Your relationship feels like a breath of fresh air,",
+"Together, you shine in the gentlest way possible,",
+"Your love is the calm in a chaotic world,",
+"The way you understand each other is breathtaking,",
+"The loyalty between you speaks louder than words,",
+"You two are a perfect example of real romance,",
+"Your bond is quiet strength and loud joy all at once,",
+"Even silence between you feels full of love,",
+"You make loving look effortless and elegant,",
+"Every gesture between you speaks of deep connection,",
+"The peace your relationship radiates is rare and radiant,",
+"Your love feels like it was written before time,",
+"Every smile you share lights up the space around you,",
+"Together, you create an atmosphere of pure love,",
+    ];
+function runTest() {
+    const male = document.getElementById('maleName').value.trim().toLowerCase();
+    const female = document.getElementById('femaleName').value.trim().toLowerCase();
+    const overlay = document.getElementById('overlay');
+    const animation = document.getElementById('animation');
+    const result = document.getElementById('result');
+    const romanticText = document.getElementById('romantic-text');
+
+    if (!male || !female) {
+      alert("Please enter both names.");
+      return;
+    }
+
+    overlay.style.backdropFilter = 'blur(8px)';
+    result.innerHTML = '';
+    romanticText.innerHTML = '';
+    animation.style.display = 'block';
+
+    let percent = 0;
+    let rotation = setInterval(() => {
+      percent = (percent + 7) % 101;
+      animation.textContent = percent + '%';
+    }, 100);
+
+    setTimeout(() => {
+      clearInterval(rotation);
+      animation.style.display = 'none';
+      overlay.style.backdropFilter = 'blur(0px)';
+
+      let finalPercent;
+      let finalSpeech = "";
+
+      const specialFemaleNames = ['patience', 'suwaiba', 'Binorah', 'Abigail', 'magret'];
+
+      if (
+        (male === "stephen" && female === "patience") ||
+        (male === "patience" && female === "stephen")
+      ) {
+        finalPercent = 97;
+        finalSpeech = stephenPatienceSpeeches[Math.floor(Math.random() * stephenPatienceSpeeches.length)];
+      } else {
+        finalPercent = Math.floor(Math.random() * (99 - 35 + 1)) + 35;
+
+        if (male === "stephen" || specialFemaleNames.includes(female)) {
+          if (finalPercent < 90) {
+            finalPercent = 90;
+          }
+        }
+
+        if (finalPercent < 50) {
+          finalSpeech = comfortingSpeeches[Math.floor(Math.random() * comfortingSpeeches.length)];
+        } else {
+          finalSpeech = romanticSpeeches[Math.floor(Math.random() * romanticSpeeches.length)];
+        }
       }
 
-      // Blur background
-      overlay.style.backdropFilter = 'blur(8px)';
+      result.innerHTML = `Love Score: ${finalPercent}%`;
+      romanticText.innerHTML = `"${finalSpeech}"`;
 
-      result.innerHTML = '';
-      romanticText.innerHTML = '';
-      animation.style.display = 'block';
-
-      let percent = 0;
-      let rotation = setInterval(() => {
-        percent = (percent + 7) % 101;
-        animation.textContent = percent + '%';
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(rotation);
-        animation.style.display = 'none';
-        overlay.style.backdropFilter = 'blur(0px)';
-
-        let finalPercent;
-        if (testCounter < 5) {
-          finalPercent = fixedResults[testCounter];
-        } else {
-          finalPercent = otherResults[(testCounter - 5) % otherResults.length];
-        }
-        testCounter++;
-
-        result.innerHTML = `Love Score: ${finalPercent}%`;
-
-        if (finalPercent >= 70) {
-          let speech = romanticSpeeches[Math.floor(Math.random() * romanticSpeeches.length)];
-          romanticText.innerHTML = `"${speech}"`;
-        }
-
-      }, 10000); // 10 seconds
-    }
+    }, 10000);
+  }
   </script>
 </body>
 </html>
