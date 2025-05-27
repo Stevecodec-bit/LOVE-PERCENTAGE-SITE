@@ -104,7 +104,7 @@ body {
     }
 @media (max-width: 150px) {
   h1 {
-    font-size: 1.8em;
+    font-size: 1.3em;
   }
   input, button {
     font-size: 1em;
@@ -496,15 +496,6 @@ function runTest() {
       let finalSpeech = "";
 
       const specialFemaleNames = ['patience', 'suwaiba', 'Binorah', 'Abigail', 'magret'];
-
-      if (
-        (male === "stephen" && female === "patience") ||
-        (male === "patience" && female === "stephen")
-      ) {
-        finalPercent = 97;
-        finalSpeech = stephenPatienceSpeeches[Math.floor(Math.random() * stephenPatienceSpeeches.length)];
-      } else {
-        finalPercent = Math.floor(Math.random() * (99 - 35 + 1)) + 35;
 
         if (male === "stephen" || specialFemaleNames.includes(female)) {
           if (finalPercent < 90) {
