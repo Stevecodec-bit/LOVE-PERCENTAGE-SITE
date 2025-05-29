@@ -500,7 +500,8 @@ function runTest() {
         (male === "stephen" && female === "patience") ||
         (male === "patience" && female === "stephen")
       ) {
-        finalPercent = 97;
+        finalPercent = 
+        Math.floor(math.random()* (100-89)) + 89; // 89 to 99
         finalSpeech = stephenPatienceSpeeches[Math.floor(Math.random() * stephenPatienceSpeeches.length)];
       } else {
         finalPercent = Math.floor(Math.random() * (99 - 35 + 1)) + 35;
